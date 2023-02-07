@@ -1,14 +1,32 @@
-// import logo from './logo.svg';
-// import './App.css';
-import TodoList from './comp/Todo';
+import React, { useState } from 'react';
 
+const TodoList = () => {
+  const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState('');
 
-function App() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTodos([...todos, input]);
+    setInput('');
+  };
+
   return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
+        <button type="submit">Add Todo</button>
+      </form>
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index}>{todo}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-    <TodoList/>
-
-    );
-}
-
-export default App;
+export default TodoList;
